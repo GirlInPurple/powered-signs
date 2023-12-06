@@ -3,7 +3,7 @@
 	"id": "poweredsigns",
 	"version": "${version}",
 	"name": "Powered Signs",
-	"description": "Makes signs able to be powered by redstone.",
+	"description": "Makes signs powerable by redstone, then prints their contents to chat.",
 	"authors": [
 		"TheColorBlurple"
 	],

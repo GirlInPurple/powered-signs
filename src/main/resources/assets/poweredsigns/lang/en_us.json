@@ -4,11 +4,11 @@
   "text.autoconfig.poweredsigns.category.poweredsigns": "Powered Signs",
 
   "text.autoconfig.poweredsigns.option.playerDistance": "Distance between Player and Sign",
-  "text.autoconfig.poweredsigns.option.playerDistance.@Tooltip": "Distance away a player is set the contents of the sign, in the shape of a box",
+  "text.autoconfig.poweredsigns.option.playerDistance.@Tooltip": "Distance away a player is sent the contents of the sign, in the shape of a box",
 
   "text.autoconfig.poweredsigns.option.coolDownTicks": "Cooldown Duration",
-  "text.autoconfig.poweredsigns.option.coolDownTicks.@Tooltip": "The amount of ticks to wait before allowing another powering",
+  "text.autoconfig.poweredsigns.option.coolDownTicks.@Tooltip": "The amount of ticks to wait before allowing another message to be sent",
 
   "text.autoconfig.poweredsigns.option.logSignPositions": "Log Sign Positions",
-  "text.autoconfig.poweredsigns.option.logSignPositions.@Tooltip": "Logs the position of signs that print out to players.\nWill spam the log file, use only if spamming becomses an issue."
+  "text.autoconfig.poweredsigns.option.logSignPositions.@Tooltip": "Logs the position of signs that print out to players.\nWill spam the log file, use only if spamming becomes an issue."
 }

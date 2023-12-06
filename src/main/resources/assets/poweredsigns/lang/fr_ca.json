@@ -1,0 +1,14 @@
+{
+  "text.autoconfig.poweredsigns.title": "Powered Signs configuration",
+
+  "text.autoconfig.poweredsigns.category.poweredsigns": "Powered Signs",
+
+  "text.autoconfig.poweredsigns.option.playerDistance": "Distance entre le Joueur et le Signe",
+  "text.autoconfig.poweredsigns.option.playerDistance.@Tooltip": "Distance un joueur est envoyé le contenu de la signe, en forme de boîte",
+
+  "text.autoconfig.poweredsigns.option.coolDownTicks": "Durée de recharge",
+  "text.autoconfig.poweredsigns.option.coolDownTicks.@Tooltip": "Le quantité de ticks attendre avant ",
+
+  "text.autoconfig.poweredsigns.option.logSignPositions": "Log Sign Positions",
+  "text.autoconfig.poweredsigns.option.logSignPositions.@Tooltip": "Enregistre la position de signes envoie aux joueurs."
+}
