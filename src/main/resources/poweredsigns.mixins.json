@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "xyz.poweredsigns.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "SignEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

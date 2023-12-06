@@ -1,41 +1,27 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "poweredsigns",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Powered Signs",
+	"description": "Makes signs able to be powered by redstone.",
 	"authors": [
-		"Me!"
+		"TheColorBlurple"
 	],
-	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
-	},
+	"contact": {},
 	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"icon": "assets/poweredsigns/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"com.example.ExampleMod"
-		],
-		"client": [
-			"com.example.ExampleModClient"
-		]
+		"main": ["xyz.poweredsigns.PoweredSigns"],
+		"modmenu": ["xyz.poweredsigns.config.ModMenuIntegration"]
 	},
 	"mixins": [
-		"modid.mixins.json",
-		{
-			"config": "modid.client.mixins.json",
-			"environment": "client"
-		}
+		"poweredsigns.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.0",
-		"minecraft": "~1.20.3",
+		"minecraft": ">=1.20.2",
 		"java": ">=17",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }
