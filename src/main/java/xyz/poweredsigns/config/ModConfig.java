@@ -25,6 +25,11 @@ public class ModConfig implements ConfigData{
     @ConfigEntry.Gui.Tooltip
     public boolean particles = true;
 
+    @ConfigEntry.Category("poweredsigns")
+    @ConfigEntry.Gui.Tooltip
+    public boolean audio = true;
+
+
     /*
     This option is disabled until i figure out how to fix isBlockPowered()
 

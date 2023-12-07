@@ -1,20 +1,26 @@
 {
-  "text.autoconfig.poweredsigns.title": "Powered Signs configuration",
+  "text.autoconfig.poweredsigns.title": "Powered Signs Configuration",
 
   "text.autoconfig.poweredsigns.category.poweredsigns": "Powered Signs",
 
   "text.autoconfig.poweredsigns.option.playerDistance": "Distance entre le Joueur et le Signe",
   "text.autoconfig.poweredsigns.option.playerDistance.@Tooltip": "Distance un joueur est envoyé le contenu de la signe, en forme de boîte",
 
-  "text.autoconfig.poweredsigns.option.coolDownTicks": "Durée de recharge",
-  "text.autoconfig.poweredsigns.option.coolDownTicks.@Tooltip": "Le quantité de ticks attendre avant ",
+  "text.autoconfig.poweredsigns.option.coolDownTicks": "Durée de Recharge",
+  "text.autoconfig.poweredsigns.option.coolDownTicks.@Tooltip": "Le quantité de ticks attendre avant",
 
-  "text.autoconfig.poweredsigns.option.logSignPositions": "Log Sign Positions",
-  "text.autoconfig.poweredsigns.option.logSignPositions.@Tooltip": "Enregistre la position de signes envoie aux joueurs.",
+  "text.autoconfig.poweredsigns.option.logSignPositions": "Enregistre Positions de Signes",
+  "text.autoconfig.poweredsigns.option.logSignPositions.@Tooltip": "Enregistre la position des signes envoie aux joueurs. Ce remplir le logs, utiliser uniquement en cas de besoin",
 
-  "text.autoconfig.poweredsigns.option.particles": "Particles (TRANSLATION NEEDED)",
-  "text.autoconfig.poweredsigns.option.particles.@Tooltip": "Powered signs emit redstone particles when powered (TRANSLATION NEEDED)",
+  "text.autoconfig.poweredsigns.option.particles": "Particules",
+  "text.autoconfig.poweredsigns.option.particles.@Tooltip": "Les signes fera particules. Rendu sur le serveur, désolé",
 
-  "text.autoconfig.poweredsigns.option.powerMode": "Power Mode (TRANSLATION NEEDED)",
-  "text.autoconfig.poweredsigns.option.powerMode.@Tooltip": "When false, signs only print when the block is strongly powered (TRANSLATION NEEDED)"
+  "text.autoconfig.poweredsigns.option.audio": "Son",
+  "text.autoconfig.poweredsigns.option.audio.@Tooltip": "Les signes feront du son. Utilisez l'option de volume BLOCKS",
+
+  "text.autoconfig.poweredsigns.option.powerMode": "Mode d'alimentation",
+  "text.autoconfig.poweredsigns.option.powerMode.@Tooltip": "Quand \"false\", signes envoyé uniquement en cas de le bloc est fortement alimenté",
+
+  "text.autoconfig.poweredsigns.option.Debug": "Mode de déboguer",
+  "text.autoconfig.poweredsigns.option.Debug.@Tooltip": "Ce remplir le logs, utiliser si tu avoir des problèmes ou projeter de faire un GH Issue."
 }

@@ -7,6 +7,8 @@ import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -64,10 +66,22 @@ public class SignEntityMixin extends BlockEntity {
                     pos.getY() + 0.75,
                     pos.getZ() + 0.5,
                     0,
-                    0.25,
+                    0,
                     0
             );
         }
+        if (ModConfig.getInstance().audio) {
+            world.playSound(
+                    pos.getX() + 0.5,
+                    pos.getY() + 0.5,
+                    pos.getZ() + 0.5,
+                    SoundEvents.BLOCK_LEVER_CLICK,
+                    SoundCategory.BLOCKS,
+                    1,
+                    1,
+                    true);
+        }
+
         // Particles are rendered on the server, sorry about that, nothing I can really do about it
 
         List<PlayerEntity> players = world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(ModConfig.getInstance().playerDistance),player -> true);
