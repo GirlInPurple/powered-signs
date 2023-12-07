@@ -10,5 +10,11 @@
   "text.autoconfig.poweredsigns.option.coolDownTicks.@Tooltip": "Le quantité de ticks attendre avant ",
 
   "text.autoconfig.poweredsigns.option.logSignPositions": "Log Sign Positions",
-  "text.autoconfig.poweredsigns.option.logSignPositions.@Tooltip": "Enregistre la position de signes envoie aux joueurs."
+  "text.autoconfig.poweredsigns.option.logSignPositions.@Tooltip": "Enregistre la position de signes envoie aux joueurs.",
+
+  "text.autoconfig.poweredsigns.option.particles": "Particles (TRANSLATION NEEDED)",
+  "text.autoconfig.poweredsigns.option.particles.@Tooltip": "Powered signs emit redstone particles when powered (TRANSLATION NEEDED)",
+
+  "text.autoconfig.poweredsigns.option.powerMode": "Power Mode (TRANSLATION NEEDED)",
+  "text.autoconfig.poweredsigns.option.powerMode.@Tooltip": "When false, signs only print when the block is strongly powered (TRANSLATION NEEDED)"
 }

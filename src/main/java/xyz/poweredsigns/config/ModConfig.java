@@ -15,11 +15,24 @@ public class ModConfig implements ConfigData{
 
     @ConfigEntry.Category("poweredsigns")
     @ConfigEntry.Gui.Tooltip
-    public int coolDownTicks = 10;
+    public int coolDownTicks = 20;
 
     @ConfigEntry.Category("poweredsigns")
     @ConfigEntry.Gui.Tooltip
     public boolean logSignPositions = false;
+
+    @ConfigEntry.Category("poweredsigns")
+    @ConfigEntry.Gui.Tooltip
+    public boolean particles = true;
+
+    /*
+    This option is disabled until i figure out how to fix isBlockPowered()
+
+    @ConfigEntry.Category("poweredsigns")
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.Gui.Excluded
+    public boolean powerMode = true;
+    */
 
     public static void init() {
         AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new);

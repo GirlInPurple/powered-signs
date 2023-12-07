@@ -10,5 +10,14 @@
   "text.autoconfig.poweredsigns.option.coolDownTicks.@Tooltip": "The amount of ticks to wait before allowing another message to be sent",
 
   "text.autoconfig.poweredsigns.option.logSignPositions": "Log Sign Positions",
-  "text.autoconfig.poweredsigns.option.logSignPositions.@Tooltip": "Logs the position of signs that print out to players.\nWill spam the log file, use only if spamming becomes an issue."
+  "text.autoconfig.poweredsigns.option.logSignPositions.@Tooltip": "Logs the position of signs that print out to players.\nWill spam the log file, use only if spamming becomes an issue.",
+
+  "text.autoconfig.poweredsigns.option.particles": "Particles",
+  "text.autoconfig.poweredsigns.option.particles.@Tooltip": "Powered signs emit redstone particles when powered.\nParticles are rendered on the server, sorry.",
+
+  "text.autoconfig.poweredsigns.option.powerMode": "Power Mode",
+  "text.autoconfig.poweredsigns.option.powerMode.@Tooltip": "When false, signs only print when the block is strongly powered",
+
+  "text.autoconfig.poweredsigns.option.Debug": "Debug Mode",
+  "text.autoconfig.poweredsigns.option.Debug.@Tooltip": "Will spam the log file, toggle this if you're having issues or plan to make a GH Issue."
 }
