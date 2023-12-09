@@ -18,9 +18,12 @@
   "text.autoconfig.poweredsigns.option.audio": "Audio",
   "text.autoconfig.poweredsigns.option.audio.@Tooltip": "Powered signs make a sound when powered.\nUses the BLOCKS volume slider.",
 
-  "text.autoconfig.poweredsigns.option.powerMode": "Power Mode",
-  "text.autoconfig.poweredsigns.option.powerMode.@Tooltip": "When \"false\", signs only print when the block is strongly powered",
+  "text.autoconfig.poweredsigns.option.strongPowerOnly": "Strong Power Only",
+  "text.autoconfig.poweredsigns.option.strongPowerOnly.@Tooltip": "When \"Yes\", signs only print when the block is strongly powered",
 
   "text.autoconfig.poweredsigns.option.Debug": "Debug Mode",
-  "text.autoconfig.poweredsigns.option.Debug.@Tooltip": "Will spam the log file, toggle this if you're having issues or plan to make a GH Issue."
+  "text.autoconfig.poweredsigns.option.Debug.@Tooltip": "Will spam the log file, toggle this if you're having issues or plan to make a GH Issue.",
+
+  "text.poweredsigns.feedback.enabled":"§ePowered signs will now send you messages.",
+  "text.poweredsigns.feedback.disabled":"§ePowered signs will no longer send you messages."
 }

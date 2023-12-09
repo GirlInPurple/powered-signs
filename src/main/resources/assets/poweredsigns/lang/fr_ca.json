@@ -18,9 +18,12 @@
   "text.autoconfig.poweredsigns.option.audio": "Son",
   "text.autoconfig.poweredsigns.option.audio.@Tooltip": "Les signes feront du son. Utilisez l'option de volume BLOCKS",
 
-  "text.autoconfig.poweredsigns.option.powerMode": "Mode d'alimentation",
-  "text.autoconfig.poweredsigns.option.powerMode.@Tooltip": "Quand \"false\", signes envoyé uniquement en cas de le bloc est fortement alimenté",
+  "text.autoconfig.poweredsigns.option.strongPowerOnly": "Mode d'alimentation",
+  "text.autoconfig.poweredsigns.option.strongPowerOnly.@Tooltip": "Quand \"Oui\", signes envoyé uniquement en cas de le bloc est fortement alimenté",
 
   "text.autoconfig.poweredsigns.option.Debug": "Mode de déboguer",
-  "text.autoconfig.poweredsigns.option.Debug.@Tooltip": "Ce remplir le logs, utiliser si tu avoir des problèmes ou projeter de faire un GH Issue."
+  "text.autoconfig.poweredsigns.option.Debug.@Tooltip": "Ce remplir le logs, utiliser si tu avoir des problèmes ou projeter de faire un GH Issue.",
+
+  "text.poweredsigns.feedback.enabled":"§eSignes fera envoyé tu messages.",
+  "text.poweredsigns.feedback.disabled":"§eSignes ne fera pas envoyé tu messages."
 }

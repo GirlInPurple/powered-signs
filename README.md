@@ -18,3 +18,13 @@ The signs check for Weak and Strong redstone power, so be careful where you put 
   - `logSignPositions`: An option for server moderators and as a light debugging tool; prints the location of signs in the world when they are powered (Default: false),
   - `particles`: Redstone particles are spawned when the sign is powered (Default: true),
   - `audio`: Powered signs make the lever clicking sound when powered (Default: true),
+  - `strongPowerOnly`: The sign prints only if the block is strongly powered (Default: false)
+
+## To Do
+- [ ] Different way of activating each type of sign
+  - [ ] Hanging signs detect both ends of the mounting post
+  - [ ] Wall signs are powered by the block they are up against
+- [ ] Fix particle effects on the server side
+- [ ] Merge the client and server side codebases as they were split due to technical constraints
+- [ ] Add regex abilities for the first line of the sign
+  - [ ] Most of the code is already written [here](https://github.com/GirlInPurple/SpeedCarts/blob/1.17/src/main/java/nl/andrewlalis/speed_carts/mixin/AbstractMinecartMixin.java#L142)

@@ -6,7 +6,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -26,16 +25,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static xyz.poweredsigns.PoweredSigns.MODID;
-import static xyz.poweredsigns.PoweredSigns.ticksSinceStartup;
+import static xyz.poweredsigns.PoweredSigns.*;
+import static xyz.poweredsigns.SignUtils.*;
 
 @Mixin(SignBlockEntity.class)
-public class SignEntityMixin extends BlockEntity {
+public class SignEntityServerMixin extends BlockEntity {
 
     @Unique
     private static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
-    public SignEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public SignEntityServerMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
@@ -49,7 +48,7 @@ public class SignEntityMixin extends BlockEntity {
         if (!cooldownTicksMap.containsKey(blockEntity)) {cooldownTicksMap.put(blockEntity, 0);}
         int cooldownTicks = cooldownTicksMap.get(blockEntity);
 
-        BlockPos underPos = posOffset(pos);
+        BlockPos underPos = positionOffset(pos);
 
         // Checks
         if (!(isBlockPowered(world, underPos))) {return;}
@@ -72,62 +71,26 @@ public class SignEntityMixin extends BlockEntity {
         }
         if (ModConfig.getInstance().audio) {
             world.playSound(
-                    pos.getX() + 0.5,
-                    pos.getY() + 0.5,
-                    pos.getZ() + 0.5,
+                    null,
+                    pos,
                     SoundEvents.BLOCK_LEVER_CLICK,
                     SoundCategory.BLOCKS,
-                    1,
-                    1,
-                    true);
+                    0.5f,
+                    1f
+            );
         }
-
-        // Particles are rendered on the server, sorry about that, nothing I can really do about it
 
         List<PlayerEntity> players = world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(ModConfig.getInstance().playerDistance),player -> true);
         for (PlayerEntity player : players) {
-            if (!(player instanceof ServerPlayerEntity)) {
-                // ServerPlayerEntity is the player entity for LAN and SP worlds
-                // Skip it, or it will send to host player twice
+            if (!(noPrintPlayers.contains(player))) {
                 for (int index = 0; index < 8; index++) {
                     int lineIndex = index % 4; // 0 1 2 3 0 1 2 3
                     String tempChatString;
-                    if (index >= 4) {tempChatString = blockEntity.getText(false).getMessage(lineIndex, false).getString();}
-                    // front side
-                    else {tempChatString = blockEntity.getText(true).getMessage(lineIndex, false).getString();}
-                    // back side
+                    if (index >= 4) {tempChatString = blockEntity.getText(false).getMessage(lineIndex, false).getString();}// front side
+                    else {tempChatString = blockEntity.getText(true).getMessage(lineIndex, false).getString();}// back side
                     if (!(tempChatString.equals(""))) {player.sendMessage(Text.literal(tempChatString), false);}
                 }
             }
         }
-    }
-
-    @Unique
-    private static boolean isBlockPowered(World world, BlockPos pos) {
-        return world.getReceivedRedstonePower(pos) > 0;
-        /*
-        Disabled this section due to it not working
-        I will fix it at a later date
-
-        if (ModConfig.getInstance().powerMode) {
-            // Both Strong and Weak power
-            return world.getReceivedRedstonePower(pos) > 0;
-        }
-        else {
-            // Only Strong power
-            BlockState state = world.getBlockState(pos);
-            for (Direction direction : Direction.values()) {
-                if (state.getStrongRedstonePower(world, pos, direction) > 0) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        */
-    }
-
-    @Unique
-    private static BlockPos posOffset(BlockPos pos) {
-        return new BlockPos((pos.getX()), (pos.getY() - 1), (pos.getZ()));
     }
 }

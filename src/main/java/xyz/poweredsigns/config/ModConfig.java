@@ -29,15 +29,9 @@ public class ModConfig implements ConfigData{
     @ConfigEntry.Gui.Tooltip
     public boolean audio = true;
 
-
-    /*
-    This option is disabled until i figure out how to fix isBlockPowered()
-
     @ConfigEntry.Category("poweredsigns")
     @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Gui.Excluded
-    public boolean powerMode = true;
-    */
+    public boolean strongPowerOnly = false;
 
     public static void init() {
         AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new);
