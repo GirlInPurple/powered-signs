@@ -5,12 +5,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.poweredsigns.SignUtils;
 
 @Mixin(MinecraftServer.class)
-public class ServerStopMixin {
+public class MinecraftServerMixin {
     @Inject(at = @At("HEAD"), method = "shutdown")
-    private void init(CallbackInfo info) {
-        // Save noPrintPlayers to a file in the active world directory so the configs save after restart
-        // Not sure how to do this, will be in next commit
+    private void shutdownMixin(CallbackInfo info) {
+        SignUtils.writeCSV();
     }
 }

@@ -9,7 +9,7 @@
     "SignEntityClientMixin"
   ],
   "mixins": [
-    "ServerStopMixin"
+    "MinecraftServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
