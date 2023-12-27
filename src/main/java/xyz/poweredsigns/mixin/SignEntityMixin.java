@@ -23,35 +23,38 @@ import static xyz.poweredsigns.PoweredSigns.ticksSinceStartup;
 import static xyz.poweredsigns.SignUtils.*;
 
 @Mixin(SignBlockEntity.class)
-public class SignEntityClientMixin extends BlockEntity {
+public class SignEntityMixin extends BlockEntity {
 
     @Unique
     private static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
-    public SignEntityClientMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public SignEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
+    /**
+     * This hashmap is used to store the data of the sign.
+     * Due to how static classes work, we cant use the {@code this} keyword, so this is a workaround.
+     * It stores the specific entity and cooldown for that entity.
+     * */
     @Unique
     private static final Map<SignBlockEntity, Integer> cooldownTicksMap = new HashMap<>();
 
     @Inject(at = @At("HEAD"), method = "tick")
     private static void tickMixin(World world, BlockPos pos, BlockState state, SignBlockEntity blockEntity, CallbackInfo ci) {
 
-        // Initialize Needed Variables
         if (!cooldownTicksMap.containsKey(blockEntity)) {cooldownTicksMap.put(blockEntity, 0);}
         int cooldownTicks = cooldownTicksMap.get(blockEntity);
 
-        BlockPos offsetPos = positionOffset(pos);
-
-        // Checks
+        BlockPos offsetPos = positionOffset(pos, state, blockEntity);
         if (!(isBlockPowered(world, offsetPos))) {return;}
+
         if ((ticksSinceStartup - cooldownTicks) < ModConfig.getInstance().coolDownTicks) {return;}
         else {cooldownTicksMap.put(blockEntity, ticksSinceStartup);}
+
         if (ModConfig.getInstance().logSignPositions) {LOGGER.info("Sign Position: "+pos);}
 
         aesthetics(world, pos);
         printToPlayers(world, pos, blockEntity);
-        LOGGER.info("This is a "+state);
     }
 }

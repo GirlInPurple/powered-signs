@@ -33,6 +33,10 @@ public class ModConfig implements ConfigData{
     @ConfigEntry.Gui.Tooltip
     public boolean strongPowerOnly = false;
 
+    @ConfigEntry.Category("poweredsigns")
+    @ConfigEntry.Gui.Tooltip
+    public boolean legacyPoweringSystem = false;
+
     public static void init() {
         AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new);
     }

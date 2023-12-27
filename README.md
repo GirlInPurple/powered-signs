@@ -18,14 +18,15 @@ The signs check for Weak and Strong redstone power, so be careful where you put 
   - `particles`: Redstone particles are spawned when the sign is powered (Default: true; Client Side Only),
   - `audio`: Powered signs make the lever clicking sound when powered (Default: true),
   - `strongPowerOnly`: The sign prints only if the block is strongly powered (Default: false),
-- The file `./config/players.csv` is how the mod saves what players have used `/togglesigns` so their settings remain after server restarts.
+  - `legacyPoweringSystem`: A toggle for the old powering system; the block under the sign is how you power it (Default: false)
+- The file `./config/players.json` is how the mod saves what players have used `/togglesigns` so their settings remain after server restarts.
 
 ## To Do
-- [ ] Different way of activating each type of sign
-  - [ ] Hanging signs detect both ends of the mounting post
-  - [ ] Wall signs are powered by the block they are up against
-- [ ] Fix particle effects on the server side
+- [x] Different way of activating each type of sign
+  - [x] Hanging signs detect ~~both ends~~ of the mounting post (Only one end of the post.)
+  - [x] Wall signs are powered by the block they are up against
+- [ ] ~~Fix particle effects on the server side~~ (Impossible to fix, skipping.)
 - [x] Merge the client and server side codebases as they were split due to technical constraints
-- [ ] Save players who use `/togglesigns` to a file so it stays after restarts (In Progress)
+- [x] Save players who use `/togglesigns` to a file so it stays after restarts
 - [ ] Add regex abilities for the first line of the sign
   - [ ] Most of the code is already written [here](https://github.com/GirlInPurple/SpeedCarts/blob/1.17/src/main/java/nl/andrewlalis/speed_carts/mixin/AbstractMinecartMixin.java#L142)
