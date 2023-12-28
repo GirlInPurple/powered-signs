@@ -1,4 +1,4 @@
-package xyz.poweredsigns;
+package xyz.poweredsigns.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -23,15 +23,25 @@ import xyz.poweredsigns.config.ModConfig;
 import xyz.poweredsigns.mixin.SignEntityMixin;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.regex.*;
 
-import static xyz.poweredsigns.PoweredSigns.MODID;
-import static xyz.poweredsigns.PoweredSigns.noPrintPlayers;
+import static xyz.poweredsigns.PoweredSigns.*;
+import static xyz.poweredsigns.utils.SignColorEnum.*;
 
 public class SignUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MODID);
+    private static final String PlayerJsonPath = "./config/poweredsignsplayers.json";
+
+    /**
+     * This hashmap is used to store the data of the sign.
+     * Due to how static classes work, we cant use the "{@code this}" keyword, so this is a workaround.
+     * It stores the specific entity and cooldown data for that entity.
+     * Look at {@link CooldownStatistics} for more context.
+     * */
+    private static final Map<SignBlockEntity, CooldownStatistics> CooldownHashmap = new WeakHashMap<>();
+    public static Map<SignBlockEntity, CooldownStatistics> getCooldownHashmap() {return CooldownHashmap;}
 
     /**
      * Checks if the block below is powered.
@@ -93,7 +103,20 @@ public class SignUtils {
      * @param blockEntity The internal data of the sign.
      */
     public static void printToPlayers(World world, BlockPos pos, SignBlockEntity blockEntity) {
-        List<PlayerEntity> players = world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(ModConfig.getInstance().playerDistance), player -> true);
+        int customBox = ModConfig.getInstance().playerDistance;
+        Matcher matcher = SignRegex(blockEntity);
+
+        if (matcher.matches()) {
+            if (!Objects.equals(matcher.group(1), "-") && Integer.parseInt(matcher.group(1)) < ModConfig.getInstance().playerDistance) {
+                customBox = Integer.parseInt(matcher.group(1));
+            }
+
+            if (!Objects.equals(matcher.group(2), null) && Integer.parseInt(matcher.group(2)) > ModConfig.getInstance().coolDownTicks) {
+                getCooldownHashmap().put(blockEntity, new CooldownStatistics(ticksSinceStartup, Integer.parseInt(matcher.group(2))));
+            }
+        }
+
+        List<PlayerEntity> players = world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(customBox), player -> true);
         for (PlayerEntity player : players) {
             if (!(noPrintPlayers.contains(player.getName().getString()))) {
                 switch (FabricLoader.getInstance().getEnvironmentType()) {
@@ -114,10 +137,22 @@ public class SignUtils {
     private static void innerPrint(SignBlockEntity blockEntity, PlayerEntity player) {
         for (int index = 0; index < 8; index++) {
             int lineIndex = index % 4; // 0 1 2 3 0 1 2 3
-            String tempChatString;
-            if (index >= 4) {tempChatString = blockEntity.getText(false).getMessage(lineIndex, false).getString();} // front side
-            else {tempChatString = blockEntity.getText(true).getMessage(lineIndex, false).getString();} // back side
-            if (!(tempChatString.equals(""))) {player.sendMessage(Text.literal(tempChatString), false);}
+            String tempChatString = "";
+            boolean RegexCheck;
+            boolean sideIndex;
+            String boldText;
+            if (index >= 4) {sideIndex = false;} else {sideIndex = true;}
+            if (blockEntity.getText(sideIndex).isGlowing()) {boldText = "§l";} else {boldText = "";}
+            if (SignRegex(blockEntity).matches() && index == 0) {RegexCheck = false;} else {RegexCheck = true;}
+
+            tempChatString = tempChatString + ColorFromString(blockEntity.getText(sideIndex).getColor().toString()).getValue();
+            tempChatString = tempChatString + boldText;
+            tempChatString = tempChatString + blockEntity.getText(sideIndex).getMessage(lineIndex, false).getString();
+            tempChatString = tempChatString + ColorFromString("RESET").getValue();
+
+            if (!(blockEntity.getText(sideIndex).getMessage(lineIndex, false).getString().equals("")) && RegexCheck) {
+                player.sendMessage(Text.literal(tempChatString), false);
+            }
         }
     }
 
@@ -165,11 +200,20 @@ public class SignUtils {
         }
     }
 
+    /**
+     * @param blockEntity A sign to check the first line of
+     * @return A Matcher for the blockEntity given
+     * */
+    public static Matcher SignRegex(SignBlockEntity blockEntity) {
+        Pattern pattern = Pattern.compile("\\[PS\\] (-?\\d*)\\s*(\\d*)");
+        return pattern.matcher(blockEntity.getText(true).getMessage(0, false).getString());
+    }
+
     public static List<String> readToggleSigns() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(
-                    new File("./config/players.json"),
+                    new File(PlayerJsonPath),
                     objectMapper.getTypeFactory().constructCollectionType(List.class, String.class)
             );
         } catch (Exception e) {
@@ -182,8 +226,8 @@ public class SignUtils {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-            objectMapper.writeValue(new File("./config/players.json"), ToggleSigns);
-            LOGGER.info("Saving list for /togglesigns in ./config/players.json");
+            objectMapper.writeValue(new File(PlayerJsonPath), ToggleSigns);
+            LOGGER.info("Saving list for /togglesigns in " + PlayerJsonPath);
         } catch (Exception e) {
             LOGGER.info(String.valueOf(e));
         }

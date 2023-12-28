@@ -31,7 +31,7 @@ public class ModConfig implements ConfigData{
 
     @ConfigEntry.Category("poweredsigns")
     @ConfigEntry.Gui.Tooltip
-    public boolean strongPowerOnly = false;
+    public boolean strongPowerOnly = true;
 
     @ConfigEntry.Category("poweredsigns")
     @ConfigEntry.Gui.Tooltip

@@ -14,13 +14,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.poweredsigns.config.ModConfig;
-
-import java.util.HashMap;
-import java.util.Map;
+import xyz.poweredsigns.utils.CooldownStatistics;
 
 import static xyz.poweredsigns.PoweredSigns.MODID;
 import static xyz.poweredsigns.PoweredSigns.ticksSinceStartup;
-import static xyz.poweredsigns.SignUtils.*;
+import static xyz.poweredsigns.utils.SignUtils.*;
 
 @Mixin(SignBlockEntity.class)
 public class SignEntityMixin extends BlockEntity {
@@ -32,25 +30,18 @@ public class SignEntityMixin extends BlockEntity {
         super(type, pos, state);
     }
 
-    /**
-     * This hashmap is used to store the data of the sign.
-     * Due to how static classes work, we cant use the {@code this} keyword, so this is a workaround.
-     * It stores the specific entity and cooldown for that entity.
-     * */
-    @Unique
-    private static final Map<SignBlockEntity, Integer> cooldownTicksMap = new HashMap<>();
-
     @Inject(at = @At("HEAD"), method = "tick")
     private static void tickMixin(World world, BlockPos pos, BlockState state, SignBlockEntity blockEntity, CallbackInfo ci) {
 
-        if (!cooldownTicksMap.containsKey(blockEntity)) {cooldownTicksMap.put(blockEntity, 0);}
-        int cooldownTicks = cooldownTicksMap.get(blockEntity);
+        if (blockEntity.isRemoved()) {getCooldownHashmap().remove(blockEntity);}
+
+        if (!getCooldownHashmap().containsKey(blockEntity)) {getCooldownHashmap().put(blockEntity, new CooldownStatistics(ticksSinceStartup, ModConfig.getInstance().coolDownTicks));}
 
         BlockPos offsetPos = positionOffset(pos, state, blockEntity);
         if (!(isBlockPowered(world, offsetPos))) {return;}
 
-        if ((ticksSinceStartup - cooldownTicks) < ModConfig.getInstance().coolDownTicks) {return;}
-        else {cooldownTicksMap.put(blockEntity, ticksSinceStartup);}
+        if ((ticksSinceStartup - getCooldownHashmap().get(blockEntity).getLastCall()) < getCooldownHashmap().get(blockEntity).getCustomCooldown()) {return;}
+        else {getCooldownHashmap().put(blockEntity, new CooldownStatistics(ticksSinceStartup, getCooldownHashmap().get(blockEntity).getCustomCooldown()));}
 
         if (ModConfig.getInstance().logSignPositions) {LOGGER.info("Sign Position: "+pos);}
 

@@ -16,6 +16,7 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xyz.poweredsigns.config.ModConfig;
+import xyz.poweredsigns.utils.SignUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,13 +13,16 @@
   "text.autoconfig.poweredsigns.option.logSignPositions.@Tooltip": "Logs the position of signs that print out to players.\nWill spam the log file, use only if spamming becomes an issue.",
 
   "text.autoconfig.poweredsigns.option.particles": "Particles",
-  "text.autoconfig.poweredsigns.option.particles.@Tooltip": "Powered signs emit redstone particles when powered.\nParticles are rendered on the server, sorry.",
+  "text.autoconfig.poweredsigns.option.particles.@Tooltip": "Powered signs emit redstone particles when powered.",
 
   "text.autoconfig.poweredsigns.option.audio": "Audio",
   "text.autoconfig.poweredsigns.option.audio.@Tooltip": "Powered signs make a sound when powered.\nUses the BLOCKS volume slider.",
 
   "text.autoconfig.poweredsigns.option.strongPowerOnly": "Strong Power Only",
   "text.autoconfig.poweredsigns.option.strongPowerOnly.@Tooltip": "When \"Yes\", signs only print when the block is strongly powered",
+
+  "text.autoconfig.poweredsigns.option.legacyPoweringSystem": "Old Powering System",
+  "text.autoconfig.poweredsigns.option.legacyPoweringSystem.@Tooltip": "You have to power the block below the sign instead of the block its attached to.\nI do not recommend using this option.",
 
   "text.autoconfig.poweredsigns.option.Debug": "Debug Mode",
   "text.autoconfig.poweredsigns.option.Debug.@Tooltip": "Will spam the log file, toggle this if you're having issues or plan to make a GH Issue.",

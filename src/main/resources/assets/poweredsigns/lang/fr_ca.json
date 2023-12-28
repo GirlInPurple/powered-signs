@@ -13,13 +13,16 @@
   "text.autoconfig.poweredsigns.option.logSignPositions.@Tooltip": "Enregistre la position des signes envoie aux joueurs. Ce remplir le logs, utiliser uniquement en cas de besoin",
 
   "text.autoconfig.poweredsigns.option.particles": "Particules",
-  "text.autoconfig.poweredsigns.option.particles.@Tooltip": "Les signes fera particules. Rendu sur le serveur, désolé",
+  "text.autoconfig.poweredsigns.option.particles.@Tooltip": "Les signes fera particules.",
 
   "text.autoconfig.poweredsigns.option.audio": "Son",
   "text.autoconfig.poweredsigns.option.audio.@Tooltip": "Les signes feront du son. Utilisez l'option de volume BLOCKS",
 
   "text.autoconfig.poweredsigns.option.strongPowerOnly": "Mode d'alimentation",
   "text.autoconfig.poweredsigns.option.strongPowerOnly.@Tooltip": "Quand \"Oui\", signes envoyé uniquement en cas de le bloc est fortement alimenté",
+
+  "text.autoconfig.poweredsigns.option.legacyPoweringSystem": "Vieux Pouvoir Système",
+  "text.autoconfig.poweredsigns.option.legacyPoweringSystem.@Tooltip": "Pouvoir le bloc ci-dessous plutôt que le bloc auquel il est attaché. Je ne recommande pas cette option.",
 
   "text.autoconfig.poweredsigns.option.Debug": "Mode de déboguer",
   "text.autoconfig.poweredsigns.option.Debug.@Tooltip": "Ce remplir le logs, utiliser si tu avoir des problèmes ou projeter de faire un GH Issue.",
