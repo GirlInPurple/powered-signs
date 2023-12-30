@@ -1,7 +1,8 @@
 package xyz.poweredsigns.utils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.HangingSignBlockEntity;
@@ -22,12 +23,15 @@ import org.slf4j.LoggerFactory;
 import xyz.poweredsigns.config.ModConfig;
 import xyz.poweredsigns.mixin.SignEntityMixin;
 
-import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.lang.reflect.Type;
 import java.util.*;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static xyz.poweredsigns.PoweredSigns.*;
-import static xyz.poweredsigns.utils.SignColorEnum.*;
+import static xyz.poweredsigns.utils.SignColorEnum.ColorFromString;
 
 public class SignUtils {
 
@@ -118,7 +122,7 @@ public class SignUtils {
 
         List<PlayerEntity> players = world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(customBox), player -> true);
         for (PlayerEntity player : players) {
-            if (!(noPrintPlayers.contains(player.getName().getString()))) {
+            if (noPrintPlayers != null && !(noPrintPlayers.contains(player.getName().getString()))) {
                 switch (FabricLoader.getInstance().getEnvironmentType()) {
                     case CLIENT -> {if (!(player instanceof ClientPlayerEntity)) {innerPrint(blockEntity, player);}}
                     case SERVER -> {innerPrint(blockEntity, player);}
@@ -211,22 +215,24 @@ public class SignUtils {
 
     public static List<String> readToggleSigns() {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(
-                    new File(PlayerJsonPath),
-                    objectMapper.getTypeFactory().constructCollectionType(List.class, String.class)
-            );
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<String>>(){}.getType();
+            List<String> TemporaryJson = gson.fromJson(new FileReader(PlayerJsonPath), type);
+            if (TemporaryJson == null) {
+                LOGGER.info("The /togglesigns list has been reset due to a possible error, as the output was null.");
+                return new ArrayList<>();
+            }
+            else {return TemporaryJson;}
         } catch (Exception e) {
-            LOGGER.info("The /togglesigns list has been reset.");
+            LOGGER.info("The /togglesigns list has been reset due to an error: "+e.getMessage());
             return new ArrayList<>();
         }
     }
 
     public static void writeToggleSigns(List<String> ToggleSigns) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-            objectMapper.writeValue(new File(PlayerJsonPath), ToggleSigns);
+        try (FileWriter writer = new FileWriter(PlayerJsonPath)) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(ToggleSigns, writer);
             LOGGER.info("Saving list for /togglesigns in " + PlayerJsonPath);
         } catch (Exception e) {
             LOGGER.info(String.valueOf(e));

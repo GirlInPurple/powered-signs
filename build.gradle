@@ -16,6 +16,7 @@ repositories {
 
 	// Mod Menu
 	maven { url "https://maven.terraformersmc.com/" }
+	mavenCentral()
 }
 
 
@@ -55,8 +56,6 @@ dependencies {
 	// but because you excluded its instance of fabric api, you need to re-add the bits it uses
 	modIncludeImplementation(fabricApi.module("fabric-screen-api-v1", project.fabric_version))
 	modIncludeImplementation(fabricApi.module("fabric-resource-loader-v0", project.fabric_version))
-
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 }
 
 processResources {
