@@ -90,8 +90,8 @@ public class SignUtils {
         }
         if (blockEntity instanceof SignBlockEntity) {
             if (signDirection == null) {return new BlockPos((pos.getX()), (pos.getY()-1), (pos.getZ()));}
-            if (signDirection == Direction.NORTH) {return new BlockPos((pos.getX()), (pos.getY()), (pos.getZ()-1));}
-            if (signDirection == Direction.SOUTH) {return new BlockPos((pos.getX()), (pos.getY()), (pos.getZ()+1));}
+            if (signDirection == Direction.NORTH) {return new BlockPos((pos.getX()), (pos.getY()), (pos.getZ()+1));}
+            if (signDirection == Direction.SOUTH) {return new BlockPos((pos.getX()), (pos.getY()), (pos.getZ()-1));}
             if (signDirection == Direction.EAST) {return new BlockPos((pos.getX()-1), (pos.getY()), (pos.getZ()));}
             if (signDirection == Direction.WEST) {return new BlockPos((pos.getX()+1), (pos.getY()), (pos.getZ()));}
         }
