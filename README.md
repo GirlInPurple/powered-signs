@@ -1,6 +1,7 @@
 # Powered Signs
 
-[Modrinth](https://modrinth.com/mod/powered-signs)
+<a href="https://modrinth.com/mod/powered-signs">![Modrinth Downloads](https://img.shields.io/modrinth/dt/powered-signs?logo=modrinth)</a>
+
 
 This is a simple mod that adds one thing; when signs are powered, they broadcast their contents to nearby players.\
 When the block below a sign is powered, it will print its contents to any player's chat who is within 32 blocks.\
