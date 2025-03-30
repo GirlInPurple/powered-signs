@@ -21,6 +21,8 @@ import xyz.poweredsigns.utils.SignUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.minecraft.util.PathUtil.validatePath;
+
 public class PoweredSigns implements ModInitializer {
 	public static String MODID = "poweredsigns";
 	private static final Logger LOGGER = LoggerFactory.getLogger(MODID);
