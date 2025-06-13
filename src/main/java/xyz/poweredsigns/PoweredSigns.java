@@ -35,12 +35,15 @@ public class PoweredSigns implements ModInitializer {
 		ServerTickEvents.END_SERVER_TICK.register(this::onEndTick);
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
 				dispatcher.register(CommandManager.literal("togglesigns")
-						.then(CommandManager.argument("value", BoolArgumentType.bool())
-								.executes(context -> toggleSigns(context, BoolArgumentType.getBool(context, "value"))))));
+								.executes(this::toggleSigns)
 
-		FabricLoader.getInstance().getModContainer(MODID).ifPresent(container -> {
-			ResourceManagerHelper.registerBuiltinResourcePack(asId("redstone_signs"), container, ResourcePackActivationType.NORMAL);
-		});
+						.then(CommandManager.argument("value", BoolArgumentType.bool())
+								.executes(context ->
+										toggleSigns(context, BoolArgumentType.getBool(context, "value"))))));
+
+		FabricLoader.getInstance().getModContainer(MODID).ifPresent(container ->
+				ResourceManagerHelper.registerBuiltinResourcePack(
+						asId("redstone_signs"), container, ResourcePackActivationType.NORMAL));
 	}
 
 	public static Identifier asId(String path) {return new Identifier(MODID, path);}
@@ -50,7 +53,24 @@ public class PoweredSigns implements ModInitializer {
 	private int toggleSigns(CommandContext<ServerCommandSource> context, boolean value) {
 		ServerCommandSource source = context.getSource();
 		if (source.getPlayer() == null) {return 0;}
+
 		String player = source.getPlayer().getName().getString();
+		return handleEnvironments(value, source, player);
+	}
+
+	private int toggleSigns(CommandContext<ServerCommandSource> context) {
+		ServerCommandSource source = context.getSource();
+		if (source.getPlayer() == null) {return 0;}
+
+		String player = source.getPlayer().getName().getString();
+		boolean disabled = noPrintPlayers.contains(player);
+		return handleEnvironments(disabled, source, player);
+	}
+	private void internalToggleSign(String player) {
+		if (!noPrintPlayers.contains(player)) {noPrintPlayers.add(player);}
+	}
+
+	private int handleEnvironments(boolean value, ServerCommandSource source, String player) {
 		switch (FabricLoader.getInstance().getEnvironmentType()) {
 			case CLIENT -> {
 				if (value) {
@@ -64,10 +84,10 @@ public class PoweredSigns implements ModInitializer {
 			case SERVER -> {
 				if (value) {
 					noPrintPlayers.remove(player);
-					source.sendFeedback(() -> Text.literal("§ePowered signs will now send you messages."), false);
+					source.sendFeedback(() -> Text.literal("§ePowered signs will now send you messages.§r"), false);
 				} else {
 					internalToggleSign(player);
-					source.sendFeedback(() -> Text.literal("§ePowered signs will no longer send you messages."), false);
+					source.sendFeedback(() -> Text.literal("§ePowered signs will no longer send you messages.§r"), false);
 				}
 			}
 		}
@@ -79,3 +99,4 @@ public class PoweredSigns implements ModInitializer {
 	}
 
 }
+
