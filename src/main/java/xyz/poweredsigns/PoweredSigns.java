@@ -93,10 +93,5 @@ public class PoweredSigns implements ModInitializer {
 		}
 		return 1;
 	}
-
-	private void internalToggleSign(String player) {
-		if (!noPrintPlayers.contains(player)) {noPrintPlayers.add(player);}
-	}
-
 }
 
