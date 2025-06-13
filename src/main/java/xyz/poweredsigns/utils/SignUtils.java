@@ -56,7 +56,7 @@ public class SignUtils {
      * @return A boolean value of if the block is powered
      * */
     public static boolean isBlockPowered(World world, BlockPos pos) {
-        boolean transparentBlock = world.getBlockState(pos).getBlock().isTransparent(world.getBlockState(pos), world, pos);
+        boolean transparentBlock = world.getBlockState(pos).isTransparent();
         if (!ModConfig.getInstance().strongPowerOnly) {
             // Both Strong and Weak power
             if (!transparentBlock) {return world.getReceivedRedstonePower(pos) > 0;}
@@ -169,7 +169,7 @@ public class SignUtils {
      * */
     public static void aesthetics(World world, BlockPos pos) {
         if (ModConfig.getInstance().particles) { // Client Exclusive
-            world.addParticle(
+            world.addParticleClient(
                     new DustParticleEffect(DustParticleEffect.RED, 1),
                     pos.getX() + 0.5,
                     pos.getY() + 0.75,
