@@ -35,6 +35,10 @@ public class ModConfig implements ConfigData{
 
     @ConfigEntry.Category("poweredsigns")
     @ConfigEntry.Gui.Tooltip
+    public boolean dontPrintWaxedSigns = true;
+
+    @ConfigEntry.Category("poweredsigns")
+    @ConfigEntry.Gui.Tooltip
     public boolean legacyPoweringSystem = false;
 
     public static void init() {

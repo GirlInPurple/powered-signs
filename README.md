@@ -19,6 +19,7 @@ The signs check for Weak and Strong redstone power, so be careful where you put 
   - `particles`: Redstone particles are spawned when the sign is powered (Default: true; Client Side Only),
   - `audio`: Powered signs make the lever clicking sound when powered (Default: true),
   - `strongPowerOnly`: The sign prints only if the block is strongly powered (Default: true),
+  - `dontPrintWaxedSigns`: The sign prints only if the block isn't waxed (Default: true),
   - `legacyPoweringSystem`: A toggle for the old powering system; the block under the sign is how you power it (Default: false)
 - The file `./config/poweredsignsplayers.json` is how the mod saves what players have used `/togglesigns` so their settings remain after server restarts. Beware, this is Username based, not UUID based.
 

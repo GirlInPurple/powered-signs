@@ -94,3 +94,4 @@ public class PoweredSigns implements ModInitializer {
 		return 1;
 	}
 }
+

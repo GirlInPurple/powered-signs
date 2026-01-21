@@ -50,7 +50,7 @@ public class SignEntityMixin extends BlockEntity {
         }
 
         BlockPos offsetPos = positionOffset(pos, state, blockEntity);
-        if (!(isBlockPowered(world, offsetPos))) return;
+        if (!(isBlockPowered(world, offsetPos, blockEntity))) return;
 
         final int ticksSinceLastPrint = ticksSinceStartup - getCooldownHashmap().get(blockEntity).getLastCall();
         if (ticksSinceLastPrint < getCooldownHashmap().get(blockEntity).getCustomCooldown()) return;
