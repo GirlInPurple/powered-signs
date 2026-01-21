@@ -1,5 +1,6 @@
 package xyz.poweredsigns.mixin;
 
+import com.google.common.primitives.UnsignedLong;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -31,19 +32,37 @@ public class SignEntityMixin extends BlockEntity {
     }
 
     @Inject(at = @At("HEAD"), method = "tick")
-    private static void tickMixin(World world, BlockPos pos, BlockState state, SignBlockEntity blockEntity, CallbackInfo ci) {
+    private static void tickMixin(
+            World world,
+            BlockPos pos,
+            BlockState state,
+            SignBlockEntity blockEntity,
+            CallbackInfo ci
+    ) {
 
-        if (blockEntity.isRemoved()) {getCooldownHashmap().remove(blockEntity);}
+        if (blockEntity.isRemoved()) getCooldownHashmap().remove(blockEntity);
 
-        if (!getCooldownHashmap().containsKey(blockEntity)) {getCooldownHashmap().put(blockEntity, new CooldownStatistics(ticksSinceStartup, ModConfig.getInstance().coolDownTicks));}
+        if (!getCooldownHashmap().containsKey(blockEntity)) {
+            getCooldownHashmap().put(
+                    blockEntity,
+                    new CooldownStatistics(ticksSinceStartup, ModConfig.getInstance().coolDownTicks)
+            );
+        }
 
         BlockPos offsetPos = positionOffset(pos, state, blockEntity);
-        if (!(isBlockPowered(world, offsetPos, blockEntity))) {return;}
+        if (!(isBlockPowered(world, offsetPos, blockEntity))) return;
 
-        if ((ticksSinceStartup - getCooldownHashmap().get(blockEntity).getLastCall()) < getCooldownHashmap().get(blockEntity).getCustomCooldown()) {return;}
-        else {getCooldownHashmap().put(blockEntity, new CooldownStatistics(ticksSinceStartup, getCooldownHashmap().get(blockEntity).getCustomCooldown()));}
+        final int ticksSinceLastPrint = ticksSinceStartup - getCooldownHashmap().get(blockEntity).getLastCall();
+        if (ticksSinceLastPrint < getCooldownHashmap().get(blockEntity).getCustomCooldown()) return;
+        else getCooldownHashmap().put(
+                blockEntity,
+                new CooldownStatistics(ticksSinceStartup, getCooldownHashmap().get(blockEntity).getCustomCooldown())
+        );
 
-        if (ModConfig.getInstance().logSignPositions) {LOGGER.info("Sign Position: "+pos);}
+
+        if (ModConfig.getInstance().logSignPositions) LOGGER.info("Sign Position: {}", pos);
+
+        // At this point the sign has passed all necessary checks and is ready to print.
 
         aesthetics(world, pos);
         printToPlayers(world, pos, blockEntity);

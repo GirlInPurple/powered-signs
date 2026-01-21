@@ -147,16 +147,16 @@ public class SignUtils {
             boolean RegexCheck;
             boolean sideIndex;
             String boldText;
-            if (index >= 4) {sideIndex = false;} else {sideIndex = true;}
-            if (blockEntity.getText(sideIndex).isGlowing()) {boldText = "§l";} else {boldText = "";}
-            if (SignRegex(blockEntity).matches() && index == 0) {RegexCheck = false;} else {RegexCheck = true;}
+            sideIndex = index < 4;
+            if (blockEntity.getText(sideIndex).isGlowing()) {boldText = "§l";} else {boldText = "";} // This will conflict with the other formatting extension
+            RegexCheck = !SignRegex(blockEntity).matches() || index != 0;
 
             tempChatString = tempChatString + ColorFromString(blockEntity.getText(sideIndex).getColor().toString()).getValue();
             tempChatString = tempChatString + boldText;
             tempChatString = tempChatString + blockEntity.getText(sideIndex).getMessage(lineIndex, false).getString();
             tempChatString = tempChatString + ColorFromString("RESET").getValue();
 
-            if (!(blockEntity.getText(sideIndex).getMessage(lineIndex, false).getString().equals("")) && RegexCheck) {
+            if (!(blockEntity.getText(sideIndex).getMessage(lineIndex, false).getString().isEmpty()) && RegexCheck) {
                 player.sendMessage(Text.literal(tempChatString), false);
             }
         }
@@ -166,7 +166,7 @@ public class SignUtils {
      * Applies particles and audio to the sign block.
      * Particles are client-side only.
      *
-     * @param pos Position of the sign to be acted apon
+     * @param pos Position of the sign to be acted upon
      * @param world World to referenced
      * */
     public static void aesthetics(World world, BlockPos pos) {
@@ -226,7 +226,7 @@ public class SignUtils {
             }
             else {return TemporaryJson;}
         } catch (Exception e) {
-            LOGGER.info("The /togglesigns list has been reset due to an error: "+e.getMessage());
+            LOGGER.info("The /togglesigns list has been reset due to an error: {}", e.getMessage());
             return new ArrayList<>();
         }
     }
