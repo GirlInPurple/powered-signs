@@ -55,7 +55,9 @@ public class SignUtils {
      * @param world World to referenced
      * @return A boolean value of if the block is powered
      * */
-    public static boolean isBlockPowered(World world, BlockPos pos) {
+    public static boolean isBlockPowered(World world, BlockPos pos, SignBlockEntity blockEntity) {
+        if(ModConfig.getInstance().dontPrintWaxedSigns && blockEntity.isWaxed()) {return false;}
+
         boolean transparentBlock = world.getBlockState(pos).isTransparent();
         if (!ModConfig.getInstance().strongPowerOnly) {
             // Both Strong and Weak power

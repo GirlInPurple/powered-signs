@@ -38,7 +38,7 @@ public class SignEntityMixin extends BlockEntity {
         if (!getCooldownHashmap().containsKey(blockEntity)) {getCooldownHashmap().put(blockEntity, new CooldownStatistics(ticksSinceStartup, ModConfig.getInstance().coolDownTicks));}
 
         BlockPos offsetPos = positionOffset(pos, state, blockEntity);
-        if (!(isBlockPowered(world, offsetPos))) {return;}
+        if (!(isBlockPowered(world, offsetPos, blockEntity))) {return;}
 
         if ((ticksSinceStartup - getCooldownHashmap().get(blockEntity).getLastCall()) < getCooldownHashmap().get(blockEntity).getCustomCooldown()) {return;}
         else {getCooldownHashmap().put(blockEntity, new CooldownStatistics(ticksSinceStartup, getCooldownHashmap().get(blockEntity).getCustomCooldown()));}
