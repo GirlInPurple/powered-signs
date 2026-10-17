@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "mod.blurple.poweredsigns.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "SignBlockEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

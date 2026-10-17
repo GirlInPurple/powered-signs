@@ -1,0 +1,7 @@
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation("net.kyori:adventure-api:5.2.0")
+}
